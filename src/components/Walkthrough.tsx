@@ -16,20 +16,20 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import { Shield, MapPin, Bell, MessageSquare, Heart, Sparkles } from "lucide-react";
+import { Shield, MapPin, Bell, MessageSquare, Heart, Sparkles, Users, Zap } from "lucide-react";
 
 export function Walkthrough() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const hasSeenWalkthrough = localStorage.getItem("sheroute-walkthrough-v2");
+    const hasSeenWalkthrough = localStorage.getItem("sheroute-walkthrough-v3");
     if (!hasSeenWalkthrough) {
       setOpen(true);
     }
   }, []);
 
   const handleClose = () => {
-    localStorage.setItem("sheroute-walkthrough-v2", "true");
+    localStorage.setItem("sheroute-walkthrough-v3", "true");
     setOpen(false);
   };
 
@@ -38,25 +38,31 @@ export function Walkthrough() {
       title: "Welcome to SHEROUTE",
       description: "\"Safety is not a luxury, it's the freedom to move without fear.\" — Empowering women with predictive technology and community care.",
       icon: Heart,
-      accent: "bg-pink-100 text-pink-600",
+      accent: "bg-pink-100 text-primary",
     },
     {
       title: "Predictive Routing",
-      description: "Our ML algorithm calculates the safest path, not just the shortest, by analyzing street lighting and community density.",
+      description: "Our ML algorithm calculates the safest path by analyzing street lighting, historical reports, and real-time pedestrian density.",
       icon: MapPin,
-      accent: "bg-blue-100 text-blue-600",
+      accent: "bg-pink-100 text-primary",
     },
     {
-      title: "Voice SOS: Just say 'HELP'",
-      description: "Activate emergency protocols instantly. Our system listens for distress signals even when your phone is locked.",
+      title: "Guardian Circle",
+      description: "Connect with trusted contacts who can track your journey in real-time and receive instant alerts if you need help.",
+      icon: Users,
+      accent: "bg-pink-100 text-primary",
+    },
+    {
+      title: "Voice SOS: Say 'HELP'",
+      description: "Simply shout 'HELP' to trigger emergency protocols. Our system listens for distress signals even when your screen is locked.",
       icon: Bell,
-      accent: "bg-orange-100 text-orange-600",
+      accent: "bg-pink-100 text-primary",
     },
     {
       title: "Verified Safe Havens",
-      description: "Access a network of verified businesses and official stations where you can find immediate assistance.",
+      description: "Find nearby businesses and stations that are certified safe zones where you can wait securely or seek immediate assistance.",
       icon: Shield,
-      accent: "bg-green-100 text-green-600",
+      accent: "bg-pink-100 text-primary",
     },
   ];
 

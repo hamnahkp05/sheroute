@@ -27,7 +27,7 @@ export function VoiceTrigger() {
       const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
       console.log("Voice Command detected:", transcript);
       
-      // distress phrases - simplified to "HELP" as per user request
+      // distress phrases - focusing on "HELP"
       const triggerPhrases = ["help", "danger", "sos", "emergency"];
       
       if (triggerPhrases.some(phrase => transcript.includes(phrase))) {
@@ -57,7 +57,7 @@ export function VoiceTrigger() {
       onClick={() => setIsListening(!isListening)}
       className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all text-xs font-bold border-2 ${
         isListening 
-          ? "bg-secondary text-white border-secondary animate-pulse" 
+          ? "bg-primary text-white border-primary animate-pulse" 
           : "bg-muted/50 text-muted-foreground border-transparent hover:bg-muted"
       }`}
     >
