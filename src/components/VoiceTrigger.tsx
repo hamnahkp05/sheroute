@@ -27,11 +27,13 @@ export function VoiceTrigger() {
       const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
       console.log("Voice Command detected:", transcript);
       
-      // distress phrases - now prioritized to "help"
-      if (transcript.includes("help") || transcript.includes("danger") || transcript.includes("sos")) {
+      // distress phrases - simplified to "HELP" as per user request
+      const triggerPhrases = ["help", "danger", "sos", "emergency"];
+      
+      if (triggerPhrases.some(phrase => transcript.includes(phrase))) {
         toast({
           title: "Voice SOS Triggered!",
-          description: "Detected distress signal: '" + transcript.trim() + "'. Activating SOS protocol...",
+          description: "Detected distress signal: '" + transcript.trim().toUpperCase() + "'. Activating SOS protocol...",
           variant: "destructive",
         });
       }
@@ -53,19 +55,21 @@ export function VoiceTrigger() {
   return (
     <button 
       onClick={() => setIsListening(!isListening)}
-      className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all text-xs font-semibold ${
-        isListening ? "bg-secondary text-white animate-pulse" : "bg-muted text-muted-foreground"
+      className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all text-xs font-bold border-2 ${
+        isListening 
+          ? "bg-secondary text-white border-secondary animate-pulse" 
+          : "bg-muted/50 text-muted-foreground border-transparent hover:bg-muted"
       }`}
     >
       {isListening ? (
         <>
-          <Mic size={14} />
-          <span>Listening for "HELP"</span>
+          <Mic size={14} className="animate-bounce" />
+          <span>LISTENING FOR "HELP"</span>
         </>
       ) : (
         <>
           <MicOff size={14} />
-          <span>Voice SOS: OFF</span>
+          <span>VOICE SOS: OFF</span>
         </>
       )}
     </button>

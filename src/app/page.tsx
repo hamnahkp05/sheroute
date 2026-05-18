@@ -1,10 +1,9 @@
-
 import { Navigation } from "@/components/Navigation";
 import { SOSButton } from "@/components/SOSButton";
 import { SafetyMap } from "@/components/SafetyMap";
 import { VoiceTrigger } from "@/components/VoiceTrigger";
 import { Walkthrough } from "@/components/Walkthrough";
-import { Shield, MapPin, Bell, Search, Info, LogIn } from "lucide-react";
+import { Shield, MapPin, Search, Info, LogIn } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
@@ -72,7 +71,7 @@ export default function Home() {
         {/* SOS Section - Reach Safe Zone */}
         <section className="py-4">
           <div className="flex flex-col items-center gap-4">
-            <h2 className="text-lg font-black tracking-tight text-center">EMERGENCY SOS</h2>
+            <h2 className="text-lg font-black tracking-tight text-center uppercase">Emergency SOS</h2>
             <p className="text-xs text-muted-foreground text-center max-w-[200px]">
               Tap to trigger immediate rescue protocol and broadcast location.
             </p>
@@ -97,7 +96,7 @@ export default function Home() {
               <Card className="border-none shadow-md overflow-hidden bg-primary text-white group cursor-pointer hover:bg-primary/90 transition-colors">
                 <CardContent className="p-6 flex items-center justify-between">
                   <div>
-                    <h3 className="font-bold text-lg">Safe Route Predictor</h3>
+                    <h3 className="font-bold text-lg leading-tight">Safe Route Predictor</h3>
                     <p className="text-xs text-white/70">ML-optimized pathfinding for your journey.</p>
                   </div>
                   <div className="bg-white/10 p-3 rounded-full group-hover:scale-110 transition-transform">
