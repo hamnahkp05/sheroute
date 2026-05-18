@@ -23,14 +23,14 @@ export function Walkthrough() {
 
   useEffect(() => {
     // Show walkthrough if not seen before
-    const hasSeenWalkthrough = localStorage.getItem("sheroute-walkthrough-v4");
+    const hasSeenWalkthrough = localStorage.getItem("sheroute-walkthrough-v5");
     if (!hasSeenWalkthrough) {
       setOpen(true);
     }
   }, []);
 
   const handleClose = () => {
-    localStorage.setItem("sheroute-walkthrough-v4", "true");
+    localStorage.setItem("sheroute-walkthrough-v5", "true");
     setOpen(false);
   };
 
@@ -70,9 +70,9 @@ export function Walkthrough() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="w-[90vw] max-w-md bg-white border-none rounded-[2rem] p-0 overflow-hidden shadow-2xl focus:outline-none">
+      <DialogContent className="w-[95vw] max-w-[420px] bg-white border-none rounded-[2.5rem] p-0 overflow-hidden shadow-2xl focus:outline-none fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="flex flex-col h-full max-h-[85vh]">
-          <div className="flex-1 overflow-y-auto px-6 pt-10 pb-4">
+          <div className="flex-1 overflow-y-auto px-6 pt-12 pb-4">
             <Carousel className="w-full">
               <CarouselContent>
                 {slides.map((slide, index) => (
@@ -96,7 +96,7 @@ export function Walkthrough() {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <div className="flex justify-center gap-4 mt-4">
+              <div className="flex justify-center gap-4 mt-6">
                 <CarouselPrevious className="static translate-y-0 h-10 w-10 bg-muted border-none hover:bg-muted/80" />
                 <CarouselNext className="static translate-y-0 h-10 w-10 bg-muted border-none hover:bg-muted/80" />
               </div>

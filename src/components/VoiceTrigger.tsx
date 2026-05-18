@@ -27,7 +27,7 @@ export function VoiceTrigger() {
       const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
       console.log("Voice Command detected:", transcript);
       
-      // distress phrases - focusing on "HELP"
+      // Focus on the keyword "HELP" as requested
       const triggerPhrases = ["help", "danger", "sos", "emergency"];
       
       if (triggerPhrases.some(phrase => transcript.includes(phrase))) {

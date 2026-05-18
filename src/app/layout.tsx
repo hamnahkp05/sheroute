@@ -22,7 +22,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased bg-background h-full overflow-x-hidden">
         <FirebaseClientProvider>
-          <div className="flex justify-center min-h-screen bg-muted/20">
+          <div className="flex justify-center min-h-screen bg-muted/20 overflow-x-hidden">
             <div className="w-full max-w-md relative min-h-screen shadow-2xl bg-background overflow-x-hidden">
               {children}
             </div>
