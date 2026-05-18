@@ -70,25 +70,25 @@ export function Walkthrough() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="w-[95vw] max-w-[420px] bg-white border-none rounded-[2.5rem] p-0 overflow-hidden shadow-2xl focus:outline-none fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="flex flex-col h-full max-h-[85vh]">
-          <div className="flex-1 overflow-y-auto px-6 pt-12 pb-4">
+      <DialogContent className="fixed inset-0 w-screen h-screen max-w-none m-0 p-0 border-none rounded-none bg-background flex flex-col items-center justify-center z-[100] outline-none">
+        <div className="w-full max-w-md h-full flex flex-col p-8 space-y-12">
+          <div className="flex-1 flex flex-col justify-center">
             <Carousel className="w-full">
               <CarouselContent>
                 {slides.map((slide, index) => (
                   <CarouselItem key={index}>
-                    <div className="flex flex-col items-center text-center space-y-6 pb-6">
-                      <div className={`p-6 rounded-[1.5rem] ${slide.accent} animate-in zoom-in duration-500 shadow-inner`}>
-                        <slide.icon className="w-12 h-12" />
+                    <div className="flex flex-col items-center text-center space-y-10 pb-6">
+                      <div className={`p-8 rounded-[2rem] ${slide.accent} animate-in zoom-in duration-500 shadow-xl`}>
+                        <slide.icon className="w-16 h-16" />
                       </div>
-                      <div className="space-y-3 px-2">
-                        <DialogTitle className="text-2xl font-black tracking-tight text-primary uppercase">
+                      <div className="space-y-4 px-4">
+                        <DialogTitle className="text-3xl font-black tracking-tight text-primary uppercase">
                           {slide.title}
                         </DialogTitle>
                         {slide.isQuote && (
-                          <Quote className="w-8 h-8 text-primary/20 mx-auto -mb-2" />
+                          <Quote className="w-10 h-10 text-primary/20 mx-auto -mb-4" />
                         )}
-                        <DialogDescription className="text-muted-foreground text-sm leading-relaxed italic">
+                        <DialogDescription className="text-muted-foreground text-base leading-relaxed italic">
                           {slide.description}
                         </DialogDescription>
                       </div>
@@ -96,21 +96,21 @@ export function Walkthrough() {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <div className="flex justify-center gap-4 mt-6">
-                <CarouselPrevious className="static translate-y-0 h-10 w-10 bg-muted border-none hover:bg-muted/80" />
-                <CarouselNext className="static translate-y-0 h-10 w-10 bg-muted border-none hover:bg-muted/80" />
+              <div className="flex justify-center gap-6 mt-12">
+                <CarouselPrevious className="static translate-y-0 h-12 w-12 bg-white border-2 border-primary/10 hover:bg-muted" />
+                <CarouselNext className="static translate-y-0 h-12 w-12 bg-white border-2 border-primary/10 hover:bg-muted" />
               </div>
             </Carousel>
           </div>
           
-          <div className="p-6 bg-white border-t border-muted/30">
+          <div className="pb-10 w-full">
             <Button 
               onClick={handleClose} 
-              className="w-full rounded-xl h-14 font-black text-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/10 transition-transform active:scale-95"
+              className="w-full rounded-2xl h-16 font-black text-xl bg-primary hover:bg-primary/90 shadow-2xl shadow-primary/20 transition-all active:scale-95"
             >
-              START JOURNEY <Sparkles className="ml-2 w-5 h-5" />
+              START JOURNEY <Sparkles className="ml-3 w-6 h-6" />
             </Button>
-            <p className="text-[10px] text-center text-muted-foreground mt-4 font-bold uppercase tracking-widest">
+            <p className="text-[12px] text-center text-muted-foreground mt-6 font-bold uppercase tracking-widest opacity-60">
               Securing Your Streets in Real-Time
             </p>
           </div>
