@@ -16,20 +16,21 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import { Shield, MapPin, Bell, MessageSquare, Heart, Sparkles, Users, Zap } from "lucide-react";
+import { Shield, MapPin, Bell, Users, Heart, Sparkles, Quote } from "lucide-react";
 
 export function Walkthrough() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const hasSeenWalkthrough = localStorage.getItem("sheroute-walkthrough-v3");
+    // Show walkthrough if not seen before
+    const hasSeenWalkthrough = localStorage.getItem("sheroute-walkthrough-v4");
     if (!hasSeenWalkthrough) {
       setOpen(true);
     }
   }, []);
 
   const handleClose = () => {
-    localStorage.setItem("sheroute-walkthrough-v3", "true");
+    localStorage.setItem("sheroute-walkthrough-v4", "true");
     setOpen(false);
   };
 
@@ -39,6 +40,7 @@ export function Walkthrough() {
       description: "\"Safety is not a luxury, it's the freedom to move without fear.\" — Empowering women with predictive technology and community care.",
       icon: Heart,
       accent: "bg-pink-100 text-primary",
+      isQuote: true,
     },
     {
       title: "Predictive Routing",
@@ -68,40 +70,49 @@ export function Walkthrough() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-md bg-white border-none rounded-[2.5rem] p-0 overflow-hidden shadow-2xl">
-        <div className="p-10">
-          <Carousel className="w-full">
-            <CarouselContent>
-              {slides.map((slide, index) => (
-                <CarouselItem key={index}>
-                  <div className="flex flex-col items-center text-center space-y-6 py-4">
-                    <div className={`p-8 rounded-[2rem] ${slide.accent} animate-in zoom-in duration-500`}>
-                      <slide.icon className="w-16 h-16" />
+      <DialogContent className="w-[90vw] max-w-md bg-white border-none rounded-[2rem] p-0 overflow-hidden shadow-2xl focus:outline-none">
+        <div className="flex flex-col h-full max-h-[85vh]">
+          <div className="flex-1 overflow-y-auto px-6 pt-10 pb-4">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {slides.map((slide, index) => (
+                  <CarouselItem key={index}>
+                    <div className="flex flex-col items-center text-center space-y-6 pb-6">
+                      <div className={`p-6 rounded-[1.5rem] ${slide.accent} animate-in zoom-in duration-500 shadow-inner`}>
+                        <slide.icon className="w-12 h-12" />
+                      </div>
+                      <div className="space-y-3 px-2">
+                        <DialogTitle className="text-2xl font-black tracking-tight text-primary uppercase">
+                          {slide.title}
+                        </DialogTitle>
+                        {slide.isQuote && (
+                          <Quote className="w-8 h-8 text-primary/20 mx-auto -mb-2" />
+                        )}
+                        <DialogDescription className="text-muted-foreground text-sm leading-relaxed italic">
+                          {slide.description}
+                        </DialogDescription>
+                      </div>
                     </div>
-                    <div className="space-y-3">
-                      <DialogTitle className="text-3xl font-black tracking-tighter text-primary">
-                        {slide.title}
-                      </DialogTitle>
-                      <DialogDescription className="text-muted-foreground text-sm italic leading-relaxed px-4">
-                        {slide.description}
-                      </DialogDescription>
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="flex justify-center gap-6 mt-8">
-              <CarouselPrevious className="relative translate-y-0 left-0 bg-muted hover:bg-muted/80 border-none h-12 w-12" />
-              <CarouselNext className="relative translate-y-0 right-0 bg-muted hover:bg-muted/80 border-none h-12 w-12" />
-            </div>
-          </Carousel>
-          <div className="mt-10">
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center gap-4 mt-4">
+                <CarouselPrevious className="static translate-y-0 h-10 w-10 bg-muted border-none hover:bg-muted/80" />
+                <CarouselNext className="static translate-y-0 h-10 w-10 bg-muted border-none hover:bg-muted/80" />
+              </div>
+            </Carousel>
+          </div>
+          
+          <div className="p-6 bg-white border-t border-muted/30">
             <Button 
               onClick={handleClose} 
-              className="w-full rounded-2xl h-14 font-black text-lg bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 transition-all active:scale-95"
+              className="w-full rounded-xl h-14 font-black text-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/10 transition-transform active:scale-95"
             >
               START JOURNEY <Sparkles className="ml-2 w-5 h-5" />
             </Button>
+            <p className="text-[10px] text-center text-muted-foreground mt-4 font-bold uppercase tracking-widest">
+              Securing Your Streets in Real-Time
+            </p>
           </div>
         </div>
       </DialogContent>

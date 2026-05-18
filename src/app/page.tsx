@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background pb-24 font-body">
+    <div className="min-h-screen bg-background pb-24 font-body flex flex-col">
       <Walkthrough />
       <header className="px-6 py-6 bg-white border-b border-border sticky top-0 z-40">
         <div className="flex justify-between items-center mb-6">
@@ -37,7 +37,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="px-6 py-8 space-y-10">
+      <main className="px-6 py-8 space-y-10 flex-1">
         {/* Real-time Status Card */}
         <section>
           <div className="flex items-center justify-between mb-4">
