@@ -27,18 +27,22 @@ export function VoiceTrigger() {
       const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
       console.log("Voice Command detected:", transcript);
       
-      // distress phrases
-      if (transcript.includes("help") || transcript.includes("sheroute sos") || transcript.includes("danger")) {
+      // distress phrases - now prioritized to "help"
+      if (transcript.includes("help") || transcript.includes("danger") || transcript.includes("sos")) {
         toast({
           title: "Voice SOS Triggered!",
-          description: "Detected phrase: '" + transcript.trim() + "'. Activating SOS protocol...",
+          description: "Detected distress signal: '" + transcript.trim() + "'. Activating SOS protocol...",
           variant: "destructive",
         });
       }
     };
 
     if (isListening) {
-      recognition.start();
+      try {
+        recognition.start();
+      } catch (e) {
+        console.error("Speech recognition already started", e);
+      }
     } else {
       recognition.stop();
     }
@@ -56,7 +60,7 @@ export function VoiceTrigger() {
       {isListening ? (
         <>
           <Mic size={14} />
-          <span>Listening for "SHEROUTE SOS"</span>
+          <span>Listening for "HELP"</span>
         </>
       ) : (
         <>

@@ -16,7 +16,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import { Shield, MapPin, Bell, MessageSquare } from "lucide-react";
+import { Shield, MapPin, Bell, MessageSquare, Heart } from "lucide-react";
 
 export function Walkthrough() {
   const [open, setOpen] = useState(false);
@@ -36,22 +36,22 @@ export function Walkthrough() {
   const slides = [
     {
       title: "Welcome to SHEROUTE",
-      description: "Empowering women with predictive safety and community-driven insights.",
-      icon: Shield,
+      description: "\"Safety is not a luxury, it's the freedom to move without fear.\" — Empowering women with predictive technology and community care.",
+      icon: Heart,
     },
     {
       title: "Predictive Routing",
-      description: "Our ML algorithm calculates the safest path, not just the shortest.",
+      description: "Our ML algorithm calculates the safest path, not just the shortest, by analyzing crime data and lighting.",
       icon: MapPin,
     },
     {
       title: "Emergency SOS",
-      description: "Activate SOS via voice or tap to alert your Guardian Circle instantly.",
+      description: "Activate SOS via voice by shouting \"HELP\" or tap the button to alert your Guardian Circle instantly.",
       icon: Bell,
     },
     {
       title: "Safe Havens",
-      description: "Find verified safe locations like police stations and friendly businesses.",
+      description: "Find verified safe locations like police stations and friendly local businesses near you.",
       icon: MessageSquare,
     },
   ];
@@ -71,7 +71,7 @@ export function Walkthrough() {
                     <DialogTitle className="text-2xl font-black text-primary">
                       {slide.title}
                     </DialogTitle>
-                    <DialogDescription className="text-muted-foreground text-sm">
+                    <DialogDescription className="text-muted-foreground text-sm italic">
                       {slide.description}
                     </DialogDescription>
                   </div>
