@@ -2,6 +2,7 @@ import { Navigation } from "@/components/Navigation";
 import { SOSButton } from "@/components/SOSButton";
 import { SafetyMap } from "@/components/SafetyMap";
 import { VoiceTrigger } from "@/components/VoiceTrigger";
+import { Walkthrough } from "@/components/Walkthrough";
 import { Shield, MapPin, Bell, Search } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,7 @@ import { Input } from "@/components/ui/input";
 export default function Home() {
   return (
     <div className="min-h-screen bg-background pb-24 font-body">
+      <Walkthrough />
       <header className="px-6 py-6 bg-white border-b border-border sticky top-0 z-40">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
