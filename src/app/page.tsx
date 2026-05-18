@@ -1,11 +1,13 @@
+
 import { Navigation } from "@/components/Navigation";
 import { SOSButton } from "@/components/SOSButton";
 import { SafetyMap } from "@/components/SafetyMap";
 import { VoiceTrigger } from "@/components/VoiceTrigger";
 import { Walkthrough } from "@/components/Walkthrough";
-import { Shield, MapPin, Bell, Search } from "lucide-react";
+import { Shield, MapPin, Bell, Search, Info, LogIn } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -21,10 +23,9 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-3">
             <VoiceTrigger />
-            <div className="relative">
-              <Bell className="text-muted-foreground w-6 h-6" />
-              <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-destructive rounded-full border-2 border-white" />
-            </div>
+            <Link href="/login" className="p-2 hover:bg-muted rounded-xl transition-colors">
+              <LogIn className="text-primary w-6 h-6" />
+            </Link>
           </div>
         </div>
         
@@ -42,9 +43,9 @@ export default function Home() {
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-black uppercase tracking-widest text-muted-foreground">Nearby Status</h2>
-            <span className="text-xs font-bold text-green-600 flex items-center gap-1">
-              <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse" /> Live Updating
-            </span>
+            <Link href="/how-it-works" className="text-xs font-bold text-primary flex items-center gap-1 hover:underline">
+              <Info size={12} /> How it works
+            </Link>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <Card className="border-none shadow-md bg-white">
@@ -92,17 +93,19 @@ export default function Home() {
         <section className="space-y-4">
           <h2 className="text-lg font-black tracking-tight">Safety Toolkit</h2>
           <div className="grid grid-cols-1 gap-4">
-            <Card className="border-none shadow-md overflow-hidden bg-primary text-white group cursor-pointer hover:bg-primary/90 transition-colors">
-              <CardContent className="p-6 flex items-center justify-between">
-                <div>
-                  <h3 className="font-bold text-lg">Safe Route Predictor</h3>
-                  <p className="text-xs text-white/70">ML-optimized pathfinding for your journey.</p>
-                </div>
-                <div className="bg-white/10 p-3 rounded-full group-hover:scale-110 transition-transform">
-                  <Shield className="w-6 h-6" />
-                </div>
-              </CardContent>
-            </Card>
+            <Link href="/routes">
+              <Card className="border-none shadow-md overflow-hidden bg-primary text-white group cursor-pointer hover:bg-primary/90 transition-colors">
+                <CardContent className="p-6 flex items-center justify-between">
+                  <div>
+                    <h3 className="font-bold text-lg">Safe Route Predictor</h3>
+                    <p className="text-xs text-white/70">ML-optimized pathfinding for your journey.</p>
+                  </div>
+                  <div className="bg-white/10 p-3 rounded-full group-hover:scale-110 transition-transform">
+                    <Shield className="w-6 h-6" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           </div>
         </section>
       </main>

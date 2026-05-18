@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
+import { FirebaseClientProvider } from "@/firebase";
 
 export const metadata: Metadata = {
   title: 'SHEROUTE | Women Safety System',
@@ -20,10 +21,12 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased bg-background">
-        <div className="max-w-md mx-auto relative min-h-screen shadow-2xl bg-background overflow-x-hidden">
-          {children}
-        </div>
-        <Toaster />
+        <FirebaseClientProvider>
+          <div className="max-w-md mx-auto relative min-h-screen shadow-2xl bg-background overflow-x-hidden">
+            {children}
+          </div>
+          <Toaster />
+        </FirebaseClientProvider>
       </body>
     </html>
   );

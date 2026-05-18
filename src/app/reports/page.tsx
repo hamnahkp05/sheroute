@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Navigation } from "@/components/Navigation";
-import { AlertTriangle, MapPin, Camera, Send, CheckCircle2 } from "lucide-react";
+import { AlertTriangle, MapPin, Camera, Send, CheckCircle2, Moon, Users, MoreHorizontal } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,18 +10,65 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { useFirestore, useUser } from "@/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { errorEmitter } from "@/firebase/error-emitter";
+import { FirestorePermissionError } from "@/firebase/errors";
 
 export default function ReportsPage() {
   const { toast } = useToast();
+  const { firestore } = useFirestore();
+  const { user } = useUser();
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [type, setType] = useState("lighting");
+  const [location, setLocation] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    toast({
-      title: "Incident Logged",
-      description: "Thank you for contributing to SHEROUTE safety data.",
-    });
+    if (!firestore || !user) {
+      toast({
+        variant: "destructive",
+        title: "Authentication Required",
+        description: "Please sign in to submit a report.",
+      });
+      return;
+    }
+
+    setLoading(true);
+
+    const reportData = {
+      userId: user.uid,
+      type,
+      location,
+      description,
+      timestamp: new Date().toISOString(),
+      createdAt: serverTimestamp(),
+    };
+
+    const reportsRef = collection(firestore, "incidents");
+
+    addDoc(reportsRef, reportData)
+      .then(() => {
+        setSubmitted(true);
+        toast({
+          title: "Incident Logged",
+          description: "Thank you for contributing to SHEROUTE safety data.",
+        });
+      })
+      .catch(async (error) => {
+        const permissionError = new FirestorePermissionError({
+          path: "incidents",
+          operation: "create",
+          requestResourceData: reportData,
+        });
+        errorEmitter.emit("permission-error", permissionError);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   if (submitted) {
@@ -62,12 +109,12 @@ export default function ReportsPage() {
             <CardContent className="p-6 space-y-6">
               <div className="space-y-4">
                 <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Type of Concern</label>
-                <RadioGroup defaultValue="lighting" className="grid grid-cols-2 gap-4">
+                <RadioGroup value={type} onValueChange={setType} className="grid grid-cols-2 gap-4">
                   <div>
                     <RadioGroupItem value="lighting" id="lighting" className="peer sr-only" />
                     <Label
                       htmlFor="lighting"
-                      className="flex flex-col items-center justify-between rounded-xl border-2 border-muted bg-white p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:text-primary"
+                      className="flex flex-col items-center justify-between rounded-xl border-2 border-muted bg-white p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:text-primary cursor-pointer"
                     >
                       <Moon className="mb-2 h-6 w-6" />
                       <span className="text-[10px] font-bold uppercase">Poor Light</span>
@@ -77,7 +124,7 @@ export default function ReportsPage() {
                     <RadioGroupItem value="crowd" id="crowd" className="peer sr-only" />
                     <Label
                       htmlFor="crowd"
-                      className="flex flex-col items-center justify-between rounded-xl border-2 border-muted bg-white p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:text-primary"
+                      className="flex flex-col items-center justify-between rounded-xl border-2 border-muted bg-white p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:text-primary cursor-pointer"
                     >
                       <Users className="mb-2 h-6 w-6" />
                       <span className="text-[10px] font-bold uppercase">Crowded</span>
@@ -87,7 +134,7 @@ export default function ReportsPage() {
                     <RadioGroupItem value="harassment" id="harassment" className="peer sr-only" />
                     <Label
                       htmlFor="harassment"
-                      className="flex flex-col items-center justify-between rounded-xl border-2 border-muted bg-white p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:text-primary"
+                      className="flex flex-col items-center justify-between rounded-xl border-2 border-muted bg-white p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:text-primary cursor-pointer"
                     >
                       <AlertTriangle className="mb-2 h-6 w-6" />
                       <span className="text-[10px] font-bold uppercase">Harassment</span>
@@ -97,7 +144,7 @@ export default function ReportsPage() {
                     <RadioGroupItem value="other" id="other" className="peer sr-only" />
                     <Label
                       htmlFor="other"
-                      className="flex flex-col items-center justify-between rounded-xl border-2 border-muted bg-white p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:text-primary"
+                      className="flex flex-col items-center justify-between rounded-xl border-2 border-muted bg-white p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:text-primary cursor-pointer"
                     >
                       <MoreHorizontal className="mb-2 h-6 w-6" />
                       <span className="text-[10px] font-bold uppercase">Other</span>
@@ -110,7 +157,13 @@ export default function ReportsPage() {
                 <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Location</label>
                 <div className="relative">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-primary" size={16} />
-                  <Input placeholder="Enter or pin location" className="pl-10 h-12 bg-muted/30 border-none rounded-xl" required />
+                  <Input 
+                    placeholder="Enter or pin location" 
+                    className="pl-10 h-12 bg-muted/30 border-none rounded-xl" 
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    required 
+                  />
                 </div>
               </div>
 
@@ -119,6 +172,8 @@ export default function ReportsPage() {
                 <Textarea 
                   placeholder="Describe the incident or risk factor..." 
                   className="bg-muted/30 border-none rounded-xl min-h-[120px]"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                   required
                 />
               </div>
@@ -127,8 +182,8 @@ export default function ReportsPage() {
                 <Button type="button" variant="outline" className="flex-1 h-12 rounded-xl gap-2">
                   <Camera size={18} /> Add Photo
                 </Button>
-                <Button type="submit" className="flex-1 h-12 rounded-xl gap-2 bg-primary">
-                  <Send size={18} /> Submit
+                <Button type="submit" className="flex-1 h-12 rounded-xl gap-2 bg-primary" disabled={loading}>
+                  <Send size={18} /> {loading ? "Logging..." : "Submit"}
                 </Button>
               </div>
             </CardContent>
@@ -140,5 +195,3 @@ export default function ReportsPage() {
     </div>
   );
 }
-
-import { Moon, Users, MoreHorizontal } from "lucide-react";

@@ -1,0 +1,56 @@
+
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User account and safety preferences.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "photoURL": { "type": "string" },
+        "safetyScore": { "type": "number" },
+        "guardianCircle": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "phone": { "type": "string" },
+              "relation": { "type": "string" }
+            }
+          }
+        }
+      },
+      "required": ["uid"]
+    },
+    "IncidentReport": {
+      "title": "Incident Report",
+      "description": "User-reported safety concerns.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["lighting", "crowd", "harassment", "other"] },
+        "location": { "type": "string" },
+        "description": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "photoUrl": { "type": "string" }
+      },
+      "required": ["userId", "type", "location", "description"]
+    }
+  },
+  "auth": {
+    "providers": ["google.com", "password"]
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile data."
+    },
+    "/incidents/{incidentId}": {
+      "schema": "IncidentReport",
+      "description": "Publicly reported incidents."
+    }
+  }
+}
