@@ -38,6 +38,19 @@
         "photoUrl": { "type": "string" }
       },
       "required": ["userId", "type", "location", "description"]
+    },
+    "AppFeedback": {
+      "title": "App Feedback",
+      "description": "User feedback on the application and route safety.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "category": { "type": "string", "enum": ["app-performance", "safety-accuracy", "ui-ux", "general"] },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["rating", "comment"]
     }
   },
   "auth": {
@@ -51,6 +64,10 @@
     "/incidents/{incidentId}": {
       "schema": "IncidentReport",
       "description": "Publicly reported incidents."
+    },
+    "/feedback/{feedbackId}": {
+      "schema": "AppFeedback",
+      "description": "User feedback submissions."
     }
   }
 }

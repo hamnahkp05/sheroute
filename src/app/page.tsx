@@ -1,8 +1,9 @@
+
 import { Navigation } from "@/components/Navigation";
 import { SOSButton } from "@/components/SOSButton";
 import { SafetyMap } from "@/components/SafetyMap";
 import { VoiceTrigger } from "@/components/VoiceTrigger";
-import { Shield, MapPin, Search, Info, LogIn } from "lucide-react";
+import { Shield, MapPin, Search, Info, LogIn, MessageSquareHeart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
@@ -99,6 +100,20 @@ export default function Home() {
                   </div>
                   <div className="bg-white/10 p-3 rounded-full group-hover:scale-110 transition-transform">
                     <Shield className="w-6 h-6" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+            
+            <Link href="/feedback">
+              <Card className="border-none shadow-md overflow-hidden bg-white text-primary group cursor-pointer hover:bg-muted/30 transition-colors">
+                <CardContent className="p-6 flex items-center justify-between">
+                  <div>
+                    <h3 className="font-bold text-lg leading-tight">Share Feedback</h3>
+                    <p className="text-xs text-muted-foreground">Tell us how we're doing.</p>
+                  </div>
+                  <div className="bg-primary/10 p-3 rounded-full group-hover:scale-110 transition-transform">
+                    <MessageSquareHeart className="w-6 h-6" />
                   </div>
                 </CardContent>
               </Card>
