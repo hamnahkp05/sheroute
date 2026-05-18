@@ -1,0 +1,22 @@
+{
+  "placeholderImages": [
+    {
+      "id": "safety-map",
+      "description": "Interactive map showing safe zones and points of interest",
+      "imageUrl": "https://picsum.photos/seed/map42/1200/800",
+      "imageHint": "city map navigation"
+    },
+    {
+      "id": "safe-haven",
+      "description": "Verified safe business or community hub",
+      "imageUrl": "https://picsum.photos/seed/haven1/600/400",
+      "imageHint": "safe building"
+    },
+    {
+      "id": "user-avatar",
+      "description": "User profile placeholder",
+      "imageUrl": "https://picsum.photos/seed/user99/200/200",
+      "imageHint": "woman profile"
+    }
+  ]
+}
