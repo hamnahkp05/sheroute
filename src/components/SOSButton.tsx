@@ -61,7 +61,10 @@ export function SOSButton() {
         )}
         
         <button
-          onClick={handlePress}
+          onClick={() => {
+  alert("🚨 SOS Triggered!");
+  console.log("SOS sent");
+}}
           className={cn(
             "w-32 h-32 md:w-40 md:h-40 rounded-full flex flex-col items-center justify-center transition-all duration-300 shadow-2xl relative overflow-hidden",
             isAlertActive 

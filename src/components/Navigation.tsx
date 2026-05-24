@@ -1,35 +1,60 @@
+"use client";
+
 import React from "react";
 
 const Navigation = () => {
   const checkRouteSafety = () => {
-    // demo values
-    const crimeRate = Math.random();   // 0 to 1
-    const lighting = Math.random();    // 0 to 1
+    // Demo values (simulate ML output)
+    const crimeRate = Math.random();   // 0 (low) → 1 (high)
+    const lighting = Math.random();    // 0 (poor) → 1 (good)
 
     const score = Math.round((lighting - crimeRate) * 100);
 
-    let status = "MEDIUM RISK";
-    if (score > 30) status = "SAFE ROUTE ✅";
-    if (score < 0) status = "UNSAFE ROUTE ❌";
+    let status = "⚠️ MEDIUM RISK";
+    let color = "#facc15";
 
-    alert(`Route Status: ${status}\nSafety Score: ${score}`);
+    if (score > 30) {
+      status = "✅ SAFE ROUTE";
+      color = "#22c55e";
+    }
+
+    if (score < 0) {
+      status = "❌ UNSAFE ROUTE";
+      color = "#ef4444";
+    }
+
+    alert(
+      `Route Safety Result\n\n` +
+      `Status: ${status}\n` +
+      `Safety Score: ${score}\n\n` +
+      `(Demo prediction using crime & lighting factors)`
+    );
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Safe Route Check</h2>
+    <div style={{ padding: "24px", textAlign: "center" }}>
+      <h2 style={{ fontSize: "22px", fontWeight: "bold", marginBottom: "12px" }}>
+        Safe Route Prediction
+      </h2>
+
+      <p style={{ fontSize: "14px", marginBottom: "16px", color: "#666" }}>
+        Demo route safety evaluation using simulated data
+      </p>
+
       <button
         onClick={checkRouteSafety}
         style={{
-          padding: "10px 20px",
-          backgroundColor: "#4CAF50",
+          padding: "12px 24px",
+          backgroundColor: "#2563eb",
           color: "white",
           border: "none",
-          borderRadius: "6px",
+          borderRadius: "8px",
           cursor: "pointer",
+          fontWeight: "bold",
+          fontSize: "14px",
         }}
       >
-        Check Route
+        Check Route Safety
       </button>
     </div>
   );

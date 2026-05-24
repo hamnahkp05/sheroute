@@ -1,12 +1,32 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect } from "react";
 import { MapPin, Shield, Hospital, Building2 } from "lucide-react";
 import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 import { Card } from "@/components/ui/card";
 
 export function SafetyMap() {
   const mapImage = PlaceHolderImages.find(img => img.id === "safety-map");
+
+  useEffect(() => {
+    console.log("SafetyMap loaded");
+
+    if (!navigator.geolocation) {
+      console.log("Geolocation not supported");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log("Latitude:", position.coords.latitude);
+        console.log("Longitude:", position.coords.longitude);
+      },
+      (error) => {
+        console.error("Location error:", error.message);
+      }
+    );
+  }, []);
 
   const hotspots = [
     { id: 1, type: "haven", top: "40%", left: "30%", label: "Safe Haven: Local Cafe" },
@@ -26,10 +46,10 @@ export function SafetyMap() {
           data-ai-hint={mapImage.imageHint}
         />
       )}
-      
-      {/* Map Overlays */}
+
+      {/* Map Overlay */}
       <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
-      
+
       {hotspots.map((spot) => (
         <div
           key={spot.id}
@@ -44,7 +64,7 @@ export function SafetyMap() {
               {spot.type === "hospital" && <Hospital className="w-4 h-4 text-red-500" />}
               {spot.type === "safe-zone" && <MapPin className="w-4 h-4 text-green-500" />}
             </div>
-            
+
             {/* Tooltip */}
             <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover/pin:opacity-100 transition-opacity whitespace-nowrap bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold shadow-md border border-border pointer-events-none">
               {spot.label}
@@ -53,7 +73,7 @@ export function SafetyMap() {
         </div>
       ))}
 
-      {/* Map Legend/Controls */}
+      {/* Legend */}
       <div className="absolute top-4 right-4 flex flex-col gap-2">
         <Card className="p-2 bg-white/90 backdrop-blur-md border-none shadow-lg">
           <div className="flex flex-col gap-2">
