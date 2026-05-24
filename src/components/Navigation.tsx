@@ -2,42 +2,37 @@
 
 import React, { useState } from "react";
 import SafetyMap from "./SafetyMap";
+import SOSButton from "./SOSButton";
+import VoiceTrigger from "./VoiceTrigger";
 
-const Navigation = () => {
-  const [screen, setScreen] = useState<"home" | "map">("home");
+type Screen = "home" | "map";
 
-  const checkRouteSafety = () => {
-    // Demo values (simulate ML output)
-    const crimeRate = Math.random();   // 0 (low) → 1 (high)
-    const lighting = Math.random();    // 0 (poor) → 1 (good)
+const Navigation: React.FC = () => {
+  const [screen, setScreen] = useState<Screen>("home");
 
-    const score = Math.round((lighting - crimeRate) * 100);
+  const checkRouteSafety = (): void => {
+    // Demo ML-like values
+    const crimeRate: number = Math.random();
+    const lighting: number = Math.random();
 
-    let status = "⚠️ MEDIUM RISK";
-    let color = "#facc15";
+    const score: number = Math.round((lighting - crimeRate) * 100);
 
-    if (score > 30) {
-      status = "✅ SAFE ROUTE";
-      color = "#22c55e";
-    }
-
-    if (score < 0) {
-      status = "❌ UNSAFE ROUTE";
-      color = "#ef4444";
-    }
+    let status: string = "⚠️ MEDIUM RISK";
+    if (score > 30) status = "✅ SAFE ROUTE";
+    if (score < 0) status = "❌ UNSAFE ROUTE";
 
     alert(
       `Route Safety Result\n\n` +
       `Status: ${status}\n` +
       `Safety Score: ${score}\n\n` +
-      `(Demo prediction using crime & lighting factors)`
+      `(Demo prediction)`
     );
   };
 
   /* ---------- MAP SCREEN ---------- */
   if (screen === "map") {
     return (
-      <div>
+      <div style={{ height: "100vh" }}>
         <button
           onClick={() => setScreen("home")}
           style={{
@@ -60,11 +55,11 @@ const Navigation = () => {
   /* ---------- HOME SCREEN ---------- */
   return (
     <div style={{ padding: "24px", textAlign: "center" }}>
-      <h2 style={{ fontSize: "22px", fontWeight: "bold", marginBottom: "12px" }}>
+      <h2 style={{ fontSize: "22px", fontWeight: "bold" }}>
         Safe Route Prediction
       </h2>
 
-      <p style={{ fontSize: "14px", marginBottom: "16px", color: "#666" }}>
+      <p style={{ fontSize: "14px", color: "#666", marginBottom: "16px" }}>
         Demo route safety evaluation using simulated data
       </p>
 
@@ -78,7 +73,6 @@ const Navigation = () => {
           borderRadius: "8px",
           cursor: "pointer",
           fontWeight: "bold",
-          fontSize: "14px",
           marginBottom: "16px",
         }}
       >
@@ -97,11 +91,16 @@ const Navigation = () => {
           borderRadius: "8px",
           cursor: "pointer",
           fontWeight: "bold",
-          fontSize: "14px",
+          marginBottom: "20px",
         }}
       >
         Open Safety Map
       </button>
+
+      <div style={{ marginTop: "20px" }}>
+        <SOSButton />
+        <VoiceTrigger />
+      </div>
     </div>
   );
 };
