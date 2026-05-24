@@ -1,47 +1,38 @@
-"use client";
+import React from "react";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Shield, Map, MessageSquare, User, Home } from "lucide-react";
-import { cn } from "@/lib/utils";
+const Navigation = () => {
+  const checkRouteSafety = () => {
+    // demo values
+    const crimeRate = Math.random();   // 0 to 1
+    const lighting = Math.random();    // 0 to 1
 
-const navItems = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/routes", label: "Routes", icon: Map },
-  { href: "/havens", label: "Havens", icon: Shield },
-  { href: "/reports", label: "Reports", icon: MessageSquare },
-  { href: "/vault", label: "Vault", icon: User },
-];
+    const score = Math.round((lighting - crimeRate) * 100);
 
-export function Navigation() {
-  const pathname = usePathname();
+    let status = "MEDIUM RISK";
+    if (score > 30) status = "SAFE ROUTE ✅";
+    if (score < 0) status = "UNSAFE ROUTE ❌";
+
+    alert(`Route Status: ${status}\nSafety Score: ${score}`);
+  };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-border z-50 px-2 py-3 md:py-4 flex justify-around items-center">
-      {navItems.map((item) => {
-        const Icon = item.icon;
-        const isActive = pathname === item.href;
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={cn(
-              "flex flex-col items-center gap-1 transition-colors duration-200 group px-2",
-              isActive ? "text-primary" : "text-muted-foreground"
-            )}
-          >
-            <div className={cn(
-              "p-1.5 rounded-xl transition-all duration-200",
-              isActive ? "bg-primary/10" : "group-hover:bg-muted"
-            )}>
-              <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
-            </div>
-            <span className="text-[10px] font-medium uppercase tracking-wider">
-              {item.label}
-            </span>
-          </Link>
-        );
-      })}
-    </nav>
+    <div style={{ padding: "20px" }}>
+      <h2>Safe Route Check</h2>
+      <button
+        onClick={checkRouteSafety}
+        style={{
+          padding: "10px 20px",
+          backgroundColor: "#4CAF50",
+          color: "white",
+          border: "none",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        Check Route
+      </button>
+    </div>
   );
-}
+};
+
+export default Navigation;
