@@ -1,23 +1,15 @@
-"use client";
+import { SafetyMap } from "@/components/SafetyMap";
 
-import React from "react";
-
-const HavensPage: React.FC = () => {
+export default function HavensPage() {
   return (
-    <div style={{ padding: "24px", textAlign: "center" }}>
-      <h2 style={{ fontSize: "22px", fontWeight: "bold" }}>
-        Safe Havens
-      </h2>
+    <main style={{ padding: "32px" }}>
+      <h1>Safe Havens</h1>
 
-      <p style={{ marginTop: "12px", color: "#555" }}>
-        Nearby safe locations feature.
+      <p>
+        Nearby police stations, hospitals, and verified safe locations.
       </p>
 
-      <p style={{ fontSize: "14px", marginTop: "8px" }}>
-        This module is a placeholder for future integration.
-      </p>
-    </div>
+      <SafetyMap />
+    </main>
   );
-};
-
-export default HavensPage;
+}

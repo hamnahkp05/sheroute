@@ -2,32 +2,25 @@
 
 import React from "react";
 
-const VoiceTrigger: React.FC = () => {
-  const activateVoiceDemo = () => {
-    alert(
-      "🎙️ Voice Trigger Active\n\n" +
-      "Say 'Help me' to trigger SOS.\n" +
-      "(Demo simulation)"
-    );
+export const VoiceTrigger: React.FC = () => {
+  const startListening = () => {
+    alert("🎙️ Voice trigger activated (Demo)");
   };
 
   return (
     <button
-      onClick={activateVoiceDemo}
+      onClick={startListening}
       style={{
-        padding: "10px 20px",
-        backgroundColor: "#7c3aed",
-        color: "white",
+        padding: "12px 20px",
+        backgroundColor: "#2563eb",
+        color: "#ffffff",
         border: "none",
         borderRadius: "8px",
-        cursor: "pointer",
-        fontWeight: "bold",
         fontSize: "14px",
+        cursor: "pointer",
       }}
     >
-      🎙️ Voice SOS
+      🎙️ Voice Trigger
     </button>
   );
 };
-
-export default VoiceTrigger;

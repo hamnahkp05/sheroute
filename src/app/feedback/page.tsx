@@ -1,24 +1,46 @@
-
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
-const FeedbackPage: React.FC = () => {
+export default function FeedbackPage() {
+  const [message, setMessage] = useState("");
+
+  const submitFeedback = () => {
+    alert("✅ Feedback submitted (Demo)");
+    setMessage("");
+  };
+
   return (
-    <div style={{ padding: "24px", textAlign: "center" }}>
-      <h2 style={{ fontSize: "22px", fontWeight: "bold" }}>
-        Feedback
-      </h2>
+    <main style={{ padding: "32px" }}>
+      <h1>Feedback</h1>
 
-      <p style={{ marginTop: "12px", color: "#555" }}>
-        Feedback module placeholder.
-      </p>
+      <textarea
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        placeholder="Share your experience..."
+        style={{
+          width: "100%",
+          height: "120px",
+          padding: "12px",
+          marginBottom: "16px",
+        }}
+      />
 
-      <p style={{ fontSize: "14px", marginTop: "8px" }}>
-        This feature can be integrated with Firebase later.
-      </p>
-    </div>
+      <br />
+
+      <button
+        onClick={submitFeedback}
+        style={{
+          padding: "10px 20px",
+          backgroundColor: "#16a34a",
+          color: "#ffffff",
+          border: "none",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        Submit
+      </button>
+    </main>
   );
-};
-
-export default FeedbackPage;
+}

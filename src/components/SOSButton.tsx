@@ -2,33 +2,26 @@
 
 import React from "react";
 
-const SOSButton: React.FC = () => {
-  const sendSOS = () => {
-    alert(
-      "🚨 SOS ACTIVATED!\n\n" +
-      "Emergency contacts notified.\n" +
-      "(Demo only – no SMS sent)"
-    );
+export const SOSButton: React.FC = () => {
+  const handleClick = () => {
+    alert("🚨 SOS Triggered (Demo)");
   };
 
   return (
     <button
-      onClick={sendSOS}
+      onClick={handleClick}
       style={{
-        padding: "12px 24px",
+        padding: "14px 24px",
         backgroundColor: "#dc2626",
-        color: "white",
+        color: "#ffffff",
         border: "none",
         borderRadius: "8px",
-        cursor: "pointer",
+        fontSize: "16px",
         fontWeight: "bold",
-        fontSize: "14px",
-        marginBottom: "12px",
+        cursor: "pointer",
       }}
     >
       🚨 SOS
     </button>
   );
 };
-
-export default SOSButton;

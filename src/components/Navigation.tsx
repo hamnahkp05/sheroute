@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import SafetyMap from "./SafetyMap";
-import SOSButton from "./SOSButton";
-import VoiceTrigger from "./VoiceTrigger";
+
+// ✅ NAMED imports (this fixes your errors)
+import { SafetyMap } from "./SafetyMap";
+import { SOSButton } from "./SOSButton";
+import { VoiceTrigger } from "./VoiceTrigger";
 
 type Screen = "home" | "map";
 
@@ -11,13 +13,12 @@ const Navigation: React.FC = () => {
   const [screen, setScreen] = useState<Screen>("home");
 
   const checkRouteSafety = (): void => {
-    // Demo ML-like values
-    const crimeRate: number = Math.random();
-    const lighting: number = Math.random();
+    const crimeRate = Math.random();
+    const lighting = Math.random();
 
-    const score: number = Math.round((lighting - crimeRate) * 100);
+    const score = Math.round((lighting - crimeRate) * 100);
 
-    let status: string = "⚠️ MEDIUM RISK";
+    let status = "⚠️ MEDIUM RISK";
     if (score > 30) status = "✅ SAFE ROUTE";
     if (score < 0) status = "❌ UNSAFE ROUTE";
 
@@ -32,11 +33,11 @@ const Navigation: React.FC = () => {
   /* ---------- MAP SCREEN ---------- */
   if (screen === "map") {
     return (
-      <div style={{ height: "100vh" }}>
+      <div style={{ padding: "16px" }}>
         <button
           onClick={() => setScreen("home")}
           style={{
-            margin: "12px",
+            marginBottom: "12px",
             padding: "8px 16px",
             background: "#e5e7eb",
             border: "none",
@@ -48,6 +49,8 @@ const Navigation: React.FC = () => {
         </button>
 
         <SafetyMap />
+        <SOSButton />
+        <VoiceTrigger />
       </div>
     );
   }
@@ -91,7 +94,6 @@ const Navigation: React.FC = () => {
           borderRadius: "8px",
           cursor: "pointer",
           fontWeight: "bold",
-          marginBottom: "20px",
         }}
       >
         Open Safety Map
