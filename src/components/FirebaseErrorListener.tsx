@@ -25,18 +25,3 @@ export function FirebaseErrorListener() {
 
   return null;
 }
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD9tGHZmQxr3P2GOlRuMyBrlHWVZzOrUXg",
-  authDomain:  "studio-4700160227-9da4f.firebaseapp.com",
-  projectId: "studio-4700160227-9da4",
-  storageBucket: "studio-4700160227-9da4f.firebasestorage.app",
-  messagingSenderId: "990370658455",
-  appId: "1:990370658455:web:041f8e0d2ae9d1de3c11d2"
-};
-
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
-console.log("✅ Firebase initialized successfully");
